@@ -1,0 +1,6 @@
+@M1MartAPI_HostAddress = http://localhost:5020
+
+GET {{M1MartAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "M1MartAPI", "M1MartAPI.csproj", "{F72F5B1D-77E2-4F8D-8184-8FB61907E154}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F72F5B1D-77E2-4F8D-8184-8FB61907E154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F72F5B1D-77E2-4F8D-8184-8FB61907E154}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F72F5B1D-77E2-4F8D-8184-8FB61907E154}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F72F5B1D-77E2-4F8D-8184-8FB61907E154}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9F19266E-52E4-44C0-9CAC-5E6BDA1CA0E5}
+	EndGlobalSection
+EndGlobal
