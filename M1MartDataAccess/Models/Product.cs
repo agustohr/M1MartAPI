@@ -19,6 +19,7 @@ namespace M1MartDataAccess.Models
         public int Stock { get; set; }
         public bool Discontinue { get; set; }
         public string? Image { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         public virtual Category Category { get; set; } = null!;
         public virtual ICollection<Cart> Carts { get; set; }

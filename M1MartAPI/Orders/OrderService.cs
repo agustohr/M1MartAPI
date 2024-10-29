@@ -122,6 +122,45 @@ namespace M1MartAPI.Orders
             }
         }
 
+        public OrderDto CheckoutOrderOneProduct(CreateOrderDto dto)
+        {
+            try
+            {
+                var order = new Order()
+                {
+                    InvoiceNumber = CreateInvoiceNumber(),
+                    BuyerUsername = dto.BuyerUsername,
+                    TotalProduct = dto.TotalProduct,
+                    TotalPrice = dto.TotalPrice,
+                    OrderDate = DateTime.Now,
+                };
+                var orderCreated = _orderRepository.Add(order);
+
+                var orderDetail = new OrderDetail()
+                {
+                    InvoiceNumber = orderCreated.InvoiceNumber,
+                    ProductId = dto.OrderDetails[0].ProductId,
+                    Quantity = dto.OrderDetails[0].Quantity,
+                    UnitPrice = dto.OrderDetails[0].UnitPrice,
+                };
+                var orderDetailCreated = _orderDetailRepository.Add(orderDetail);
+
+                return new OrderDto()
+                {
+                    InvoiceNumber = orderCreated.InvoiceNumber,
+                    BuyerUsername = orderCreated.BuyerUsername,
+                    TotalProduct = orderCreated.TotalProduct,
+                    TotalPrice = orderCreated.TotalPrice,
+                    OrderDate = orderCreated.OrderDate,
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+
         public string CreateInvoiceNumber()
         {
             string monthNow = DateTime.Now.Month.ToString("00");

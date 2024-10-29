@@ -36,5 +36,28 @@ namespace M1MartAPI.Dashboard
                 });
             }
         }
+
+        [HttpGet("monthly-sales/{year}")]
+        public IActionResult GetMonthlySalesTrend(int year)
+        {
+            try
+            {
+                var monthlySalesTrend = _dashboardService.GetSalesMonthByYear(year);
+                return Ok(new ResponseDto<List<MonthlyTrendDto>>()
+                {
+                    Status = "SUCCESS",
+                    Message = "Here is the monthly sales trend data",
+                    Data = monthlySalesTrend
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ResponseDto<string>()
+                {
+                    Status = "SERVER ERROR",
+                    Message = ex.Message
+                });
+            }
+        }
     }
 }

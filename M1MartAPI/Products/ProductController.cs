@@ -15,10 +15,34 @@ namespace M1MartAPI.Products
             _productService = productService;
         }
 
+        [HttpGet("filter")]
+        public IActionResult GetProducts(string productName, string categoryName, int pageNumber = 1)
+        {
+            try
+            {
+                var products = _productService.GetAllProducts(pageNumber, productName, categoryName);
+                return Ok(new ResponseDto<PaginationDto<ProductDto>>()
+                {
+                    Status = "SUCCESS",
+                    Message = $"You've received {products.Data.Count()} products.",
+                    Data = products
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ResponseDto<string>()
+                {
+                    Status = "SERVER ERROR",
+                    Message = ex.Message
+                });
+            }
+        }
+
         [HttpGet]
         public IActionResult GetProducts()
         {
-            try {
+            try
+            {
                 var products = _productService.GetAllProducts();
                 return Ok(new ResponseDto<List<ProductDto>>()
                 {

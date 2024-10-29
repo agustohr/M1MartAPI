@@ -15,5 +15,7 @@ namespace M1MartBusiness.Interfaces
         Order Add(Order order);
         int CountOrder();
         int CountSpesificInvoiceNumber(string code);
+        decimal GetTotalIncome();
+        List<Order> GetMonthlySalesByYear(int year);
     }
 }

@@ -34,6 +34,13 @@ namespace M1MartBusiness.Repositories
             return orderDetails;
         }
 
+        public OrderDetail Add(OrderDetail orderDetail)
+        {
+            _context.Add(orderDetail);
+            _context.SaveChanges();
+            return orderDetail;
+        }
+
         public List<OrderDetail> GetByInvoiceNumber(string invoiceNumber)
         {
             return _context.OrderDetails.Include(od => od.Product).Where(od => od.InvoiceNumber == invoiceNumber).ToList();

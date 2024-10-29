@@ -3,6 +3,9 @@ using M1MartBusiness.Interfaces;
 using M1MartBusiness.Repositories;
 using M1MartDataAccess.Models;
 using M1MartAPI.Categories.CategoryDtos;
+using M1MartAPI.Shared;
+using static M1MartAPI.Shared.Constants;
+using System.Xml.Linq;
 
 namespace M1MartAPI.Products
 {
@@ -14,6 +17,34 @@ namespace M1MartAPI.Products
         {
             _productRepository = productRepository;
             _imageDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Assets/Products");
+        }
+
+        public PaginationDto<ProductDto> GetAllProducts(int pageNumber, string? productName, string? categoryName)
+        {
+            var products = _productRepository.GetByFilter(pageNumber, PAGE_SIZE, productName, categoryName).Select(p => new ProductDto()
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Category = new CategoryDto()
+                {
+                    Id = p.Category.Id,
+                    Name = p.Category.Name,
+                },
+                //CategoryName = p.Category.Name,
+                Description = p.Description,
+                Price = p.Price,
+                Stock = p.Stock,
+                Image = p.Image,
+                Discontinue = p.Discontinue,
+            });
+            int productsCount = _productRepository.CountProductFiltered(productName, categoryName);
+            return new PaginationDto<ProductDto>()
+            {
+                Data = products.ToList(),
+                PageNumber = pageNumber,
+                PageSize = PAGE_SIZE,
+                TotalRecords = productsCount
+            };
         }
 
         public List<ProductDto> GetAllProducts()
@@ -74,6 +105,7 @@ namespace M1MartAPI.Products
                 Description = dto.Description,
                 Discontinue = false,
                 Image = dto.Image != null ? CreateProductImage(dto.Image) : string.Empty,
+                CreatedDate = DateTime.Now,
             };
 
             var createdProduct = _productRepository.Add(product);

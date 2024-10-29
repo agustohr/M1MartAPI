@@ -104,5 +104,30 @@ namespace M1MartAPI.Orders
                 });
             }
         }
+
+        [HttpPost("checkout-one-product")]
+        public IActionResult CheckoutOneProduct([FromBody] CreateOrderDto dto)
+        {
+            try
+            {
+                var order = _orderService.CheckoutOrderOneProduct(dto);
+                return Ok(new ResponseDto<OrderDto>()
+                {
+                    Status = "Success",
+                    Message = "Cart is successfully checkout",
+                    Data = order
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ResponseDto<string>()
+                {
+                    Status = "SERVER ERROR",
+                    Message = ex.Message
+                });
+            }
+        }
+
+        
     }
 }

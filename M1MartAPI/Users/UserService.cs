@@ -17,7 +17,6 @@ namespace M1MartAPI.Users
             var users = _userRepository.GetAll().Select(u => new UserDto()
             {
                 Username = u.Username,
-                Password = u.Password,
                 Role = u.Role,
                 FirstName = u.FirstName,
                 LastName = u.LastName,
@@ -33,7 +32,6 @@ namespace M1MartAPI.Users
                 return new UserDto()
                 {
                     Username = user.Username,
-                    Password = user.Password,
                     Role = user.Role,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
@@ -51,7 +49,7 @@ namespace M1MartAPI.Users
             var user = new User()
             {
                 Username = dto.Username,
-                Password = dto.Password,
+                //Password = dto.Password,
                 Role = dto.Role,
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
@@ -61,7 +59,7 @@ namespace M1MartAPI.Users
             return new UserDto()
             {
                 Username = createdUser.Username,
-                Password = createdUser.Password,
+                //Password = createdUser.Password,
                 Role = createdUser.Role,
                 FirstName = createdUser.FirstName,
                 LastName = createdUser.LastName,
@@ -81,7 +79,7 @@ namespace M1MartAPI.Users
                 return new UserDto()
                 {
                     Username = user.Username,
-                    Password = user.Password,
+                    //Password = user.Password,
                     Role = user.Role
                 };
             }

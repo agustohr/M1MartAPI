@@ -11,6 +11,7 @@ namespace M1MartBusiness.Interfaces
     {
         List<OrderDetail> GetAll();
         List<OrderDetail> AddList(List<OrderDetail> orderDetails);
+        OrderDetail Add(OrderDetail orderDetail);
         List<OrderDetail> GetByInvoiceNumber(string invoiceNumber);
     }
 }

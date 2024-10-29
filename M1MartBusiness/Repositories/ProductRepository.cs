@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace M1MartBusiness.Repositories
 {
@@ -20,6 +21,61 @@ namespace M1MartBusiness.Repositories
         public List<Product> GetAll()
         {
             return _context.Products.Include(p => p.Category).ToList();
+        }
+
+        public List<Product> GetByFilter(int pageNumber, int pageSize, string? productName, string? categoryName)
+        {
+            // Normalize empty strings to null
+            productName = string.IsNullOrWhiteSpace(productName) ? null : productName;
+            categoryName = string.IsNullOrWhiteSpace(categoryName) ? null : categoryName;
+
+            var query = from product in _context.Products.Include(b => b.Category)
+                        where
+                        (productName == null
+                        || product.Name.Contains(productName))
+                        &&
+                        (categoryName == null
+                        || (product.Category != null && product.Category.Name.Contains(categoryName)))
+                        select product;
+
+            return query.Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+        }
+
+        public int CountProductFiltered(string? productName, string? categoryName)
+        {
+            productName = string.IsNullOrWhiteSpace(productName) ? null : productName;
+            categoryName = string.IsNullOrWhiteSpace(categoryName) ? null : categoryName;
+
+            var query = from product in _context.Products.Include(b => b.Category)
+                        where
+                        (productName == null
+                        || product.Name.Contains(productName))
+                        &&
+                        (categoryName == null
+                        || (product.Category != null && product.Category.Name.Contains(categoryName)))
+                        select product;
+
+            return query.Count();
+        }
+
+        public List<Product> GetNewestProducts()
+        {
+            return _context.Products
+                //.Include(p => p.Category)
+                .OrderByDescending(p => p.CreatedDate)
+                .Take(5)
+                .ToList();
+        }
+
+        public List<Product> GetTopBuy()
+        {
+            return _context.Products
+                .Include(p => p.OrderDetails)
+                .OrderByDescending(p => p.OrderDetails.Count)
+                .Take(5)
+                .ToList();
         }
 
         public Product GetByID(int id)

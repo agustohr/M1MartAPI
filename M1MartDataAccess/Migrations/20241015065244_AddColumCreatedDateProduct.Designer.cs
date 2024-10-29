@@ -4,6 +4,7 @@ using M1MartDataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace M1MartDataAccess.Migrations
 {
     [DbContext(typeof(M1MartV2Context))]
-    partial class M1MartV2ContextModelSnapshot : ModelSnapshot
+    [Migration("20241015065244_AddColumCreatedDateProduct")]
+    partial class AddColumCreatedDateProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -51,5 +51,34 @@ namespace M1MartBusiness.Repositories
             return _context.Orders.Where(o => o.InvoiceNumber.Contains(code)).Count();
         }
 
+        public decimal GetTotalIncome()
+        {
+            return _context.Orders.Sum(o => o.TotalPrice);
+        }
+
+        public List<Order> GetMonthlySalesByYear(int year)
+        {
+
+            return _context.Orders.Where(o => o.OrderDate.Year == year).ToList();
+            //foreach (var sales in salesForYear)
+            //{
+            //    Console.WriteLine(sales);
+            //}
+            //return salesForYear.ToDictionary(x => x.TotalSalesAmount, x => x.TotalIncome);
+
+            //var fullYearSales = Enumerable.Range(1, 12)
+            //    .GroupJoin(
+            //        salesForYear,
+            //        month => month,
+            //        sale => sale.Month,
+            //        (month, sales) => new
+            //        {
+            //            Month = month,
+            //            TotalSalesAmount = sales.Any() ? sales.First().TotalSalesAmount : 0,
+            //            TotalIncome = sales.Any() ? sales.First().TotalIncome : 0 
+            //        }
+            //    ).OrderBy(o => o.Month);
+        } 
+
     }
 }
